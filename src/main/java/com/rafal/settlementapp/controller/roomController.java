@@ -13,7 +13,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
-public class mainController {
+public class roomController {
 
     @Autowired
     private ExpenseRepository expenseDAO;
@@ -76,22 +76,4 @@ public class mainController {
         roomDAO.deleteById(roomId);
     }
 
-    @PostMapping("/rooms/{roomId}/users")
-    public User addUser(@PathVariable int roomId, @RequestBody User theUser){
-
-        Optional<Room> result = roomDAO.findById(roomId);
-        Room theRoom = null;
-
-        if(result.isPresent()){
-            theRoom = result.get();
-        }else{
-            throw new RuntimeException("Did not find room id - " + roomId);
-        }
-
-        theUser.setId(0);
-        theRoom.add(theUser);
-        userDAO.save(theUser);
-
-        return theUser;
-    }
 }
