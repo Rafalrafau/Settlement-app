@@ -16,7 +16,8 @@ public class Room {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "room", cascade={CascadeType.ALL})
+    @OneToMany(fetch = FetchType.LAZY, cascade={CascadeType.ALL})
+    @JoinColumn(name="room_id")
     private List<User> users;
 
     public Room(){
@@ -55,4 +56,12 @@ public class Room {
 
     }
 
+    @Override
+    public String toString() {
+        return "Room{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", users=" + users +
+                '}';
+    }
 }

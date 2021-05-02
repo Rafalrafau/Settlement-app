@@ -4,6 +4,7 @@ import com.rafal.settlementapp.dao.ExpenseRepository;
 import com.rafal.settlementapp.dao.RoomRepository;
 import com.rafal.settlementapp.dao.UserRepository;
 import com.rafal.settlementapp.entity.Room;
+import com.rafal.settlementapp.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +23,8 @@ public class mainController {
 
     @Autowired
     private RoomRepository roomDAO;
+
+    private Room currentRoom;
 
     @GetMapping("/rooms")
     public List<Room> findAll(){
@@ -73,6 +76,22 @@ public class mainController {
         roomDAO.deleteById(roomId);
     }
 
+    @PostMapping("/rooms/{roomId}/users")
+    public User addUser(@PathVariable int roomId, @RequestBody User theUser){
 
+        Optional<Room> result = roomDAO.findById(roomId);
+        Room theRoom = null;
 
+        if(result.isPresent()){
+            theRoom = result.get();
+        }else{
+            throw new RuntimeException("Did not find room id - " + roomId);
+        }
+
+        theUser.setId(0);
+        theRoom.add(theUser);
+        userDAO.save(theUser);
+
+        return theUser;
+    }
 }

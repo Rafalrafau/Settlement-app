@@ -21,11 +21,11 @@ public class User {
     @Column(name= "money")
     private double money;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
-    @JoinColumn(name = "room_id")
-    private Room room;
+//    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
+//    @JoinColumn(name = "room_id")
+//    private Room room;
 
-    @OneToMany(mappedBy = "user", cascade = {CascadeType.ALL})
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
     private List<Expense> paidExpenses;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
@@ -73,13 +73,13 @@ public class User {
         this.money = money;
     }
 
-    public Room getGroup() {
-        return room;
-    }
-
-    public void setGroup(Room group) {
-        this.room = group;
-    }
+//    public Room getRoom() {
+//        return room;
+//    }
+//
+//    public void setRoom(Room room) {
+//        this.room = room;
+//    }
 
     public List<Expense> getPaidExpenses() {
         return paidExpenses;
@@ -104,7 +104,6 @@ public class User {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", money=" + money +
-                ", group=" + room +
                 '}';
     }
 
