@@ -23,7 +23,7 @@ public class User {
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinColumn(name = "room_id")
-    private Group group;
+    private Room room;
 
     @OneToMany(mappedBy = "user", cascade = {CascadeType.ALL})
     private List<Expense> paidExpenses;
@@ -73,12 +73,12 @@ public class User {
         this.money = money;
     }
 
-    public Group getGroup() {
-        return group;
+    public Room getGroup() {
+        return room;
     }
 
-    public void setGroup(Group group) {
-        this.group = group;
+    public void setGroup(Room group) {
+        this.room = group;
     }
 
     public List<Expense> getPaidExpenses() {
@@ -104,7 +104,7 @@ public class User {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", money=" + money +
-                ", group=" + group +
+                ", group=" + room +
                 '}';
     }
 

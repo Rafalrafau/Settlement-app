@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "group")
-public class Group {
+@Table(name = "room")
+public class Room {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,10 +16,10 @@ public class Group {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "group", cascade={CascadeType.ALL})
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "room", cascade={CascadeType.ALL})
     private List<User> users;
 
-    public Group(){
+    public Room(){
 
     }
 
