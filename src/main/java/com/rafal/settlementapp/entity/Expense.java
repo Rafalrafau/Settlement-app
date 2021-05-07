@@ -1,5 +1,11 @@
 package com.rafal.settlementapp.entity;
 
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -18,7 +24,7 @@ public class Expense {
     @Column( name = "price")
     private double price;
 
-    @ManyToOne(cascade = {CascadeType.REFRESH, CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST})
+    @ManyToOne( fetch = FetchType.LAZY)
     @JoinColumn(name="user_id")
     private User user;
 

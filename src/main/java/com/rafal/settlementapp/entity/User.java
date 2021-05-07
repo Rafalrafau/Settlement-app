@@ -1,10 +1,16 @@
 package com.rafal.settlementapp.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
 @Table(name = "user")
+
 public class User {
 
     @Id
@@ -26,14 +32,15 @@ public class User {
 //    private Room room;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+    @JsonIgnore
     private List<Expense> paidExpenses;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
     @JoinTable(name= "user_expense", joinColumns =@JoinColumn(name = "user_id"), inverseJoinColumns =@JoinColumn(name="expense_id"))
+    @JsonIgnore
     private List<Expense> sharedExpenses;
 
     public User(){
-
     }
 
     public User(String firstName, String lastName) {

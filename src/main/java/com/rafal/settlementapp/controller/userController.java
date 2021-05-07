@@ -136,6 +136,8 @@ public class userController {
             theUser = userResult.get();
 
             if(theRoom.getUsers().contains(theUser)){
+                theRoom.getUsers().remove(theUser);
+
                 userDAO.deleteById(userId);
             }else{
                 throw new RuntimeException("Did not find user id - " + userId + "in current room");
@@ -144,12 +146,4 @@ public class userController {
             throw new RuntimeException("Did not find user id - " + userId);
         }
     }
-
-
-
-
-
-
-
-
 }
